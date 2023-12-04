@@ -1,0 +1,18 @@
+---
+driver:
+  name: docker
+platforms:
+  - name: instance
+    image: geerlingguy/docker-centos8-ansible:latest
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    pre_build_image: true
+
+verifier:
+  name: testinfra
+  options:
+    # pytest-ansible conflicts with --connection
+    p: "no:pytest-ansible"
+
+    # avoid loading global pyproject.toml options, so we don't
+    # load the setting that says "disable testinfra"
+    c: "."

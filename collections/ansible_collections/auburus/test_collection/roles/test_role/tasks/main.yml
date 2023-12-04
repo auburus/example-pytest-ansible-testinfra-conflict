@@ -1,0 +1,10 @@
+---
+- name: Create tmp file
+  become: true
+  ansible.builtin.copy:
+    dest: /tmp/file.txt
+    content: |
+      Hello world
+    owner: root
+    group: root
+    mode: '0644'

@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "example-pytest-ansible-testinfra-conflict"
+version = "0.1.0"
+description = ""
+authors = []
+readme = "README.md"
+packages = [{include = "example_pytest_ansible_testinfra_conflict"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+ansible-core = "*"
+pytest-testinfra = "*"
+pytest-ansible = "*"
+molecule = "*"
+molecule-plugins = {version = "*", extras = ['docker']}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+norecursedirs="molecule"
+
+# testinfra and pytest-ansible conflict as pytest
+# plugins. We disable testinfra when running "all" tests,
+# and disable `pytest-ansible` when running each molecule test
+addopts = "-p no:pytest11.testinfra"
+
